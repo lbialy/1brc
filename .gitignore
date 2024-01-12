@@ -45,3 +45,7 @@ out/
 /measurements*.txt
 /*.out
 out_expected.txt
+
+.scala-build
+scala/calculate_average_lbialy.jar
+scala/calculate_average_lbialy_native
