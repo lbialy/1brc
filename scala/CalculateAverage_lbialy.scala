@@ -95,7 +95,7 @@ object Parsing:
       arr(idx - start) = char
       idx += 1
       char = bb.get()
-    val station = new String(arr).trim
+    val station = new String(arr, 0, idx - start)
     bb.position(idx + 1)
     station
 
@@ -141,7 +141,7 @@ object Parsing:
   * baseline - Scala Native: 342.085s (bug on Ryzen?, 197s on Apple M1 Pro)
   * parallelism and unrolled Double parsing - Scala JVM: 7.667s
   * faster Double parsing - Scala JVM: 7.410s
-  * fix for SN MappedByteBuffer's missing apis - Scala JVM: 20.453s (using get(idx: Int) instead of get(idx: Int, arr: Array[Byte]) is painful)
+  * fix for SN MappedByteBuffer's missing apis - Scala JVM: 10.871s (using get(idx: Int) instead of get(idx: Int, arr: Array[Byte]) is painful)
   * fix for SN MappedByteBuffer's missing apis - Scala Native: crashes
   */
 @main def calculateAverage(): Unit =
