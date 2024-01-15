@@ -88,10 +88,14 @@ object Parsing:
 
   def parseStation(bb: ByteBuffer, start: Int): String =
     var idx = start
-    while bb.get(idx) != ';' do idx += 1
-    val arr = Array.ofDim[Byte](idx - start)
-    bb.get(start, arr)
-    val station = new String(arr)
+    bb.position(idx)
+    val arr  = Array.ofDim[Byte](100) // max station name length
+    var char = bb.get() // at least one char name
+    while char != ';' do
+      arr(idx - start) = char
+      idx += 1
+      char = bb.get()
+    val station = new String(arr).trim
     bb.position(idx + 1)
     station
 
@@ -137,7 +141,8 @@ object Parsing:
   * baseline - Scala Native: 342.085s (bug on Ryzen?, 197s on Apple M1 Pro)
   * parallelism and unrolled Double parsing - Scala JVM: 7.667s
   * faster Double parsing - Scala JVM: 7.410s
-  * 
+  * fix for SN MappedByteBuffer's missing apis - Scala JVM: 20.453s (using get(idx: Int) instead of get(idx: Int, arr: Array[Byte]) is painful)
+  * fix for SN MappedByteBuffer's missing apis - Scala Native: crashes
   */
 @main def calculateAverage(): Unit =
   val segmentCount = Runtime.getRuntime().availableProcessors()
