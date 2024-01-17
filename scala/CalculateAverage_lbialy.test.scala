@@ -122,7 +122,7 @@ class TestSuite extends munit.FunSuite:
 
   test("linear parsing") {
     val bb  = makeSmallSampleBB
-    val map = Parsing.parseWholeBuffer(bb).asScala
+    val map = Parsing.parseWholeBuffer(bb).toHashMap.asScala
 
     assert(map.contains("Cracow"))
     assert(map.contains("Blantyre"))
@@ -135,7 +135,7 @@ class TestSuite extends munit.FunSuite:
 
   test("large linear parsing") {
     val bb  = makeSampleBB
-    val map = Parsing.parseWholeBuffer(bb).asScala
+    val map = Parsing.parseWholeBuffer(bb).toHashMap.asScala
 
     assertCorrectResult(map)
   }
@@ -177,7 +177,7 @@ class TestSuite extends munit.FunSuite:
           .toVector
       }
 
-      val map = Await.result(maps, Duration.Inf).reduce(HashMapOps.merge(_, _)).asScala
+      val map = Await.result(maps, Duration.Inf).map(_.toHashMap).reduce(HashMapOps.merge(_, _)).asScala
 
       assertCorrectResult(map)
     }
