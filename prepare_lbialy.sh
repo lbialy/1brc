@@ -21,4 +21,4 @@ source "$HOME/.sdkman/bin/sdkman-init.sh"
 sdk use java 21.0.1-graal 1>&2
 
 scala-cli --power package ./scala -f --assembly -o ./scala/calculate_average_lbialy.jar
-scala-cli --power package ./scala -f --native --native-mode release-full --native-version $SN_VERSION -o ./scala/calculate_average_lbialy_native
+scala-cli --power package ./scala -f --native --native-mode release-full --native-lto=full --native-gc=immix --native-version $SN_VERSION -o ./scala/calculate_average_lbialy_native

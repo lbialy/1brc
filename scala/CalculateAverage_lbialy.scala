@@ -33,18 +33,6 @@ class Result(
   def sum: Double = _sum
 
   def station: String =
-    // var idx = offset
-    // bb.position(idx)
-    // val arr  = Array.ofDim[Byte](100) // max station name length
-    // var char = bb.get() // at least one char name
-    // while char != ';' do
-    //   arr(idx - offset) = char
-    //   idx += 1
-    //   char = bb.get()
-
-    // new String(arr, 0, idx - offset)
-
-    // bulk method
     val arr2 = Array.ofDim[Byte](length)
     bb.get(offset, arr2)
     new String(arr2)
@@ -214,6 +202,7 @@ object FastMap:
     newHash & Mask
 
 /** Changelog:
+  *
   * JVM: Oracle GraalVM 21.0.1
   * Machine: AMD Ryzen 7 2700X Eight-Core @ 16x 3.7GHz
   * 
@@ -230,8 +219,14 @@ object FastMap:
   * fix for SN MappedByteBuffer's missing apis - Scala Native: crashes
   * fast hashmap implementation - Scala JVM: 3.617s
   * fast hashmap implementation - Scala Native: 307.060s (bug on Ryzen?, 38.76s on Apple M1 Pro)
-  * bulk BB APIs restored - Scala JVM: 3.564s
+  * bulk BB APIs restored - Scala JVM: 3.564s (16.118s on Apple M1 Pro)
   * bulk BB APIs restored - Scala Native: 242.387s (bug on Ryzen?, 38.76s on Apple M1 Pro)
+  * after fixes to Scala Native: 4.494s (release-full, immix) / 4.058s (release-full, none) (17.442s on Apple M1 Pro with immix, 17.064s on M1 with none) 
+  * 
+  * Final results:
+  * - Scala JVM: 3.564s (16.118s on Apple M1 Pro)
+  * - Scala Native (immix): 4.494s (17.442s on Apple M1 Pro)
+  * - Scala Native (no gc): 4.058s (17.064s on Apple M1 Pro)
   */
 @main def calculateAverage(): Unit =
   val segmentCount = Runtime.getRuntime().availableProcessors()
