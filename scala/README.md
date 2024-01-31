@@ -18,7 +18,7 @@ Anyway, you're probably bored by all that yapping so here are the final scores:
   - Scala Native (immix): 4.494s (17.442s on Apple M1 Pro)
   - Scala Native (no gc): 4.058s (17.064s on Apple M1 Pro)
 
-From 100x slower to 1.14x slower in two weeks. Bravo, [Wojtek](https://twitter.com/WojciechM_dev)! Check out the changelog in the [source](CalculateAverage_lbialy.scala).
+From 100x slower to 1.14x slower in two weeks. Bravo, [Wojtek](https://twitter.com/WojciechM_dev)! Check out the changelog in the [source](CalculateAverage_lbialy.scala). Commits in this branch represent different points in progress of the implementation so, if interested in seeing what yielded what change, check out `git log`!
 
 #### You can run it too! 
 
